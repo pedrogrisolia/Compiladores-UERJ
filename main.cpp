@@ -5,7 +5,9 @@
  * */
 
 #include <stdio.h>
-#include <string.h>
+#include <string>
+#include <cctype>
+#include <cstdio>
 
 
 //NOME TOKENS
@@ -27,41 +29,41 @@
 #define OR  271;
 #define REPEAT  272;
 #define RETURN  273;
-#define THEN  274;
-#define UNTIL  275;
-#define WHILE  276;
-#define RELOP  277;
-#define ID  278;
-#define NUM  279;
-#define LITERAL 280;
-#define COMENT_CURTO 281;
-#define COMENT_LONGO 282;
+// #define THEN  274;
+#define UNTIL  274;
+#define WHILE  275;
+#define RELOP  276;
+#define ID  277;
+#define NUM  278;
+#define LITERAL 279;
+#define COMENT_CURTO 280;
+#define COMENT_LONGO 281;
 
 
 //ATRIBUTOS
-#define LE 283;
-#define GE 284;
-#define LT 285;
-#define GT 286;
-#define EE 287;
-#define EQ 288;
-#define NE 289;
-#define ADD 290;
-#define SUB 291;
-#define MULT 292;
-#define DIV 293;
-#define EXP 294;
-#define PARENTESES 295;
-#define CHAVES 296;
-#define COLCHETES 297;
-#define PONTO_VIRGULA 298;
-#define DOIS_PONTOS 299;
-#define PONTO 300;
-#define VIRGULA 301;
-#define CONCAT 302;
+#define LE 282;
+#define GE 283;
+#define LT 284;
+#define GT 285;
+#define EE 286;
+#define EQ 287;
+#define NE 288;
+#define ADD 289;
+#define SUB 290;
+#define MULT 291;
+#define DIV 292;
+#define EXP 293;
+#define PARENTESES 294;
+#define CHAVES 295;
+#define COLCHETES 296;
+#define PONTO_VIRGULA 297;
+#define DOIS_PONTOS 298;
+#define PONTO 399;
+#define VIRGULA 300;
+#define CONCAT 301;
 
+//using namespace std;
 std::string lexema;
-
 
 struct Token{
  int nome_token;
@@ -195,7 +197,7 @@ Token proximo_token()
 			case 5:
 				cont_sim_lido++;
 				tabela_simbolos[pos_tabela_simbolos] = lexema;					
-				printf("<num, " + lexema + ">\n");
+				printf("<num, %s >\n", lexema.c_str());
 				token.nome_token = NUM;
 				token.atributo = pos_tabela_simbolos;
 				pos_tabela_simbolos++;
@@ -236,7 +238,7 @@ Token proximo_token()
 			case 8:
 				cont_sim_lido++;
 				tabela_simbolos[pos_tabela_simbolos] = lexema;					
-				printf("<id, " + lexema + ">\n");
+				printf("<id, %s >\n", lexema.c_str());
 				token.nome_token = ID;
 				token.atributo = pos_tabela_simbolos;
 				pos_tabela_simbolos++;
@@ -287,7 +289,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				/* tabela_simbolos[pos_tabela_simbolos] = lexema; */					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<relop, LE");
+				printf("<relop, LE>");
 				token.nome_token = RELOP;
 				token.atributo = LE;
 				/* pos_tabela_simbolos++; */
@@ -300,7 +302,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<relop, LT");
+				printf("<relop, LT>");
 				token.nome_token = RELOP;
 				token.atributo = LT;
 				/* pos_tabela_simbolos++; */
@@ -324,7 +326,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<relop, EE");
+				printf("<relop, EE>");
 				token.nome_token = RELOP;
 				token.atributo = EE;
 				/* pos_tabela_simbolos++; */
@@ -337,7 +339,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<relop, EQ");
+				printf("<relop, EQ>");
 				token.nome_token = RELOP;
 				token.atributo = EQ;
 				/* pos_tabela_simbolos++; */
@@ -361,7 +363,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<relop, GT");
+				printf("<relop, GT>");
 				token.nome_token = RELOP;
 				token.atributo = GT;
 				/* pos_tabela_simbolos++; */
@@ -374,7 +376,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<relop, GE");
+				printf("<relop, GE>");
 				token.nome_token = RELOP;
 				token.atributo = GE;
 				/* pos_tabela_simbolos++; */
@@ -396,7 +398,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<relop, NE");
+				printf("<relop, NE>");
 				token.nome_token = RELOP;
 				token.atributo = NE;
 				/* pos_tabela_simbolos++; */
@@ -438,7 +440,7 @@ Token proximo_token()
 			case 23:
 				cont_sim_lido++;
 				tabela_simbolos[pos_tabela_simbolos] = lexema;					
-				printf("<literal, " + lexema + ">\n");
+				printf("<literal, %s >\n", lexema.c_str());
 				token.nome_token = LITERAL;
 				token.atributo = pos_tabela_simbolos;
 				pos_tabela_simbolos++; 
