@@ -70,7 +70,7 @@ struct Token{
  int atributo;
 };
 
-
+int n = 0;
 int estado = 1;
 int partida = 0;
 int cont_sim_lido = 0;
@@ -82,7 +82,7 @@ char *readFile(char *fileName)
 {
 	FILE *file = fopen(fileName, "r");
 	char *code;
-	int n = 0;
+	//int n = 0;
 	int c;
 
 	if(file == NULL) return NULL;
@@ -99,7 +99,6 @@ char *readFile(char *fileName)
 		n++;
 	}
 	code[n] = '\0';
-	printf("entrei");
 	return code;
 }
 
@@ -118,9 +117,9 @@ int falhar()
 
 	case 21: partida = 24; break;
 
-	case 24: partida = 27; break;
+	case 24: partida = 28; break;
 
-	case 27:
+	case 28:
 		//retornar msg de erro
 		printf("Erro encontrado no código\n");
 		cont_sim_lido++;
@@ -658,14 +657,19 @@ Token proximo_token()
 int main ()
 {
 	Token token;
-	//char *f = const_cast<char *>("programa.txt");
-	//char str[] = "programa.txt";
-	//char *f = const_cast<char *>("programa.txt");
-	//char *str[] = {"programa.txt"};
-	code = readFile("programa.txt");
-    token = proximo_token();
-	token = proximo_token();
-    //...
+	code = readFile((char *)"programa.txt");
 
+	FILE *f = fopen("programa.txt", "r");
+	char c;
+	while ((c = fgetc(f)) != EOF){
+		token = proximo_token();
+	}
+
+	//array de char com cada caracter do arquivo
+	printf("----------------\n");
+	for(int i = 0; i < n; i++){
+		printf("%c \n", code[i]); 
+	}
+    
 
 }
