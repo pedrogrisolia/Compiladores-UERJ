@@ -487,7 +487,7 @@ Token proximo_token()
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
-				printf("<coment_curto, -1");
+				printf("<coment_curto, -1>");
 				token.nome_token = COMENT_CURTO;
 				token.atributo = -1;
 				/* pos_tabela_simbolos++; */
@@ -659,17 +659,21 @@ int main ()
 	Token token;
 	code = readFile((char *)"programa.txt");
 
-	FILE *f = fopen("programa.txt", "r");
-	char c;
-	while ((c = fgetc(f)) != EOF){
+	// FILE *f = fopen("programa.txt", "r");
+	// char c;
+	// while ((c = fgetc(f)) != EOF){
+	// 	token = proximo_token();
+	// }
+
+	while (token.atributo != -1){
 		token = proximo_token();
 	}
 
 	//array de char com cada caracter do arquivo
-	printf("----------------\n");
-	for(int i = 0; i < n; i++){
-		printf("%c \n", code[i]); 
-	}
+	// printf("----------------\n");
+	// for(int i = 0; i < n; i++){
+	// 	printf("%c \n", code[i]); 
+	// }
     
 
 }
