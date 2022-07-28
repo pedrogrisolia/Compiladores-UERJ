@@ -75,7 +75,7 @@ int estado = 1;
 int partida = 0;
 int cont_sim_lido = 0;
 char *code;
-std::string tabela_simbolos[];
+std::string tabela_simbolos[999];
 int pos_tabela_simbolos = 0;
 
 char *readFile(char *fileName)
@@ -95,9 +95,11 @@ char *readFile(char *fileName)
 
 	while ((c = fgetc(file))!= EOF)
 	{
-		code[n++] = (char) c;
+		code[n] = (char) c;
+		n++;
 	}
 	code[n] = '\0';
+	printf("entrei");
 	return code;
 }
 
@@ -456,24 +458,33 @@ Token proximo_token()
 					estado = 1;
 					cont_sim_lido++;
 				}
-				else if(c == '--') {
+				else if(c == '-') {
 					estado = 25;
 				} else {
 					estado = falhar();
 				}
 				break;
 			
+
 			case 25:
 				cont_sim_lido++;
 				c = code[cont_sim_lido];
-				if(isdigit(c) || isalpha(c)) {
-					estado = 25;
-				} else {
+				if(c == '-'){
 					estado = 26;
 				}
 				break;
-			
+
 			case 26:
+				cont_sim_lido++;
+				c = code[cont_sim_lido];
+				if(isdigit(c) || isalpha(c)) {
+					estado = 26;
+				} else {
+					estado = 27;
+				}
+				break;
+			
+			case 27:
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
@@ -486,15 +497,15 @@ Token proximo_token()
 				return(token);
 				break;
 
-			case 27:
+			case 28:
 				c = code[cont_sim_lido];
 				if((c == ' ')||(c == '\n'))
 				{
 					estado = 1;
 					cont_sim_lido++;
 				}
-				if(c == '--[[') {
-					estado = 28;
+				if(c == '-') {
+					estado = 29;
 				} else {
 					estado = falhar();
 					token.nome_token = -1;
@@ -503,17 +514,48 @@ Token proximo_token()
 				}
 				break;
 			
-			case 28:
+			case 29:
+				cont_sim_lido++;
+				c = code[cont_sim_lido];
+				if (c == '-'){
+					estado = 30;
+				}
+				break;
+
+			case 30:
+				cont_sim_lido++;
+				c = code[cont_sim_lido];
+				if (c == '['){
+					estado = 31;
+				}
+				break;
+
+			case 31:
+				cont_sim_lido++;
+				c = code[cont_sim_lido];
+				if (c == '['){
+					estado = 32;
+				}
+				break;
+
+			case 32:
 				cont_sim_lido++;
 				c = code[cont_sim_lido];
 				if(isdigit(c) || isalpha(c) || c == '\n') {
-					estado = 28;
-				} else if(c == ']]') {
-					estado = 29;
+					estado = 32;
+				} else if(c == ']') {
+					estado = 33;
 				}
 				break;
-			
-			case 29:
+
+			case 33:
+				cont_sim_lido++;
+				c = code[cont_sim_lido];
+				if (c == ']'){
+					estado = 34;
+				}
+				break;
+			case 34:
 				cont_sim_lido++;
 				// tabela_simbolos[pos_tabela_simbolos] = lexema;					
 				//printf("<relop, " + lexema + ">\n");
@@ -616,9 +658,13 @@ Token proximo_token()
 int main ()
 {
 	Token token;
-    code = readFile("programa.txt");
+	//char *f = const_cast<char *>("programa.txt");
+	//char str[] = "programa.txt";
+	//char *f = const_cast<char *>("programa.txt");
+	//char *str[] = {"programa.txt"};
+	code = readFile("programa.txt");
     token = proximo_token();
-    token = proximo_token();
+	token = proximo_token();
     //...
 
 
