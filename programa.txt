@@ -1,1 +1,22 @@
-a>b
+local grid_test1 = {
+  { 11, 12, 13 },
+  { 21, 22, 23 },
+  { 31, 32, 33 }
+}
+
+for y in grid_test1 do  
+    if( grid_test1[y] == true and y ~= false) then
+        y = y + 1;
+        y = y - 1;
+        y = y / 1;
+        y = y * 1;
+        y = y^1;
+    elseif (y >= 1 or not(y <= 2 and y == 0)) then
+        y = "teste";
+        --comentario curto
+        --[[comentario 
+        longo ]]
+        break;
+    end       
+  
+end
